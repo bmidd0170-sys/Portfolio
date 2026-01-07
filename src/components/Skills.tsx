@@ -16,7 +16,6 @@ const defaultSkills = [
       "Next.js",
       "TypeScript",
       "Tailwind CSS",
-      "Framer Motion",
       "HTML5/CSS3",
     ],
   },
@@ -24,20 +23,26 @@ const defaultSkills = [
     category: "Backend",
     skills: [
       "Node.js",
-      "Express",
       "PostgreSQL",
-      "MongoDB",
-      "GraphQL",
       "REST APIs",
     ],
   },
   {
     category: "Tools & Platforms",
-    skills: ["Git", "GitHub", "Docker", "AWS", "Vercel", "Firebase"],
+    skills: [
+      "Git",
+      "GitHub",
+      "Vercel",
+      "Firebase",
+    ],
   },
   {
     category: "Other",
-    skills: ["Web Performance", "SEO", "Testing", "Agile", "UI/UX Design"],
+    skills: [
+      "Web Performance",
+      "Testing",
+      "UI/UX Design",
+    ],
   },
 ];
 
@@ -76,21 +81,21 @@ export default function Skills() {
       const currentMode = document.documentElement.dataset.mode as "fun" | "boring" | undefined;
       setMode(currentMode || "fun");
     };
-    
+
     updateMode();
-    
+
     const observer = new MutationObserver(updateMode);
     observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ["data-mode"],
     });
-    
+
     return () => observer.disconnect();
   }, []);
 
   // Flatten all skills into a single array
   const allSkills = skillCategories.flatMap((cat) => cat.skills);
-  
+
   const floatingSkills = useMemo(() => {
     if (!isClient) return [] as {
       skill: string;
@@ -127,11 +132,11 @@ export default function Skills() {
         {loading && <p className="text-center text-slate-600">Loading skills...</p>}
         <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {skillCategories.map((category) => (
-            <div key={category.category} className="space-y-4">
-              <h3 className="text-xl font-bold text-center text-blue-600 dark:text-blue-400 mb-4">
+            <div key={category.category} className="space-y-6">
+              <h3 className="text-xl font-bold text-center text-blue-600 dark:text-blue-400 mb-6">
                 {category.category}
               </h3>
-              <div className="space-y-3">
+              <div className="space-y-5">
                 {category.skills.map((skill) => (
                   <div
                     key={skill}

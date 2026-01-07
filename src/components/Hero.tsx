@@ -9,7 +9,7 @@ export default function Hero() {
           Welcome to My Portfolio
         </h1>
         <p className="text-xl sm:text-2xl text-slate-200/90 dark:text-slate-200 mb-10">
-          I'm a full-stack developer passionate about creating beautiful and
+          I'm a Software engineer passionate about creating beautiful and
           functional web experiences.
         </p>
         <div className="flex gap-5 justify-center flex-wrap">

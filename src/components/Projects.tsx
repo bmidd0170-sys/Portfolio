@@ -55,15 +55,15 @@ function ProjectsCarousel() {
       const currentMode = document.documentElement.dataset.mode as "fun" | "boring" | undefined;
       setMode(currentMode || "fun");
     };
-    
+
     updateMode();
-    
+
     const observer = new MutationObserver(updateMode);
     observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ["data-mode"],
     });
-    
+
     return () => observer.disconnect();
   }, []);
 
@@ -304,7 +304,7 @@ function ProjectsCarousel() {
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-3 py-1 text-sm bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 rounded-full"
+                    className="px-3 py-1 text-sm rounded-full bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium shadow-md shadow-blue-500/30 hover:shadow-blue-400/50 transition-shadow duration-200"
                   >
                     {tag}
                   </span>
@@ -350,7 +350,7 @@ function ProjectsCarousel() {
               {selectedProject.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="px-3 py-1 text-sm bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 rounded-full"
+                  className="px-3 py-1 text-sm rounded-full bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium shadow-md shadow-blue-500/30 hover:shadow-blue-400/50 transition-shadow duration-200"
                 >
                   {tag}
                 </span>

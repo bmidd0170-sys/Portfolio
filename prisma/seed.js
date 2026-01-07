@@ -26,6 +26,27 @@ async function main() {
     ],
   });
 
+  await prisma.skill.createMany({
+    data: [
+      {
+        category: "Frontend",
+        skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Three.js"],
+      },
+      {
+        category: "Backend",
+        skills: ["Node.js", "Prisma", "PostgreSQL", "REST APIs"],
+      },
+      {
+        category: "Tools & Platforms",
+        skills: ["Git", "GitHub", "Vercel", "VS Code", "Figma"],
+      },
+      {
+        category: "AI/ML",
+        skills: ["OpenAI API", "GPT-4", "Prompt Engineering"],
+      },
+    ],
+  });
+
   console.log("Seeding finished.");
 }
 
