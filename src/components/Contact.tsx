@@ -52,19 +52,22 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="section-container">
-      <h2 className="section-title">Get In Touch</h2>
-      <div className="max-w-2xl mx-auto">
-        <p className="text-center text-slate-600 dark:text-slate-300 mb-8 text-lg">
-          I'd love to hear from you! Feel free to reach out with any questions
-          or opportunities.
+    <section
+      id="contact"
+      className="w-screen min-h-screen px-4 sm:px-6 lg:px-8 py-24 sm:py-20 flex flex-col items-center justify-center relative z-10"
+    >
+      <h2 className="text-3xl sm:text-4xl font-bold mb-10 text-center sm:text-5xl">Get In Touch</h2>
+      <div className="max-w-3xl mx-auto">
+        <p className="text-center text-slate-600 dark:text-slate-300 mb-12 text-2xl">
+          I'd love to hear from you! Feel free to reach out with any questions or opportunities.
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-10">
+
           <div>
             <label
               htmlFor="name"
-              className="block text-sm font-medium mb-2 text-slate-700 dark:text-slate-300"
+              className="block text-lg font-semibold mb-3 text-slate-700 dark:text-slate-300"
             >
               Name
             </label>
@@ -75,7 +78,7 @@ export default function Contact() {
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="w-full px-6 py-4 border border-slate-300 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-600 text-lg"
               placeholder="Your name"
             />
           </div>
@@ -83,7 +86,7 @@ export default function Contact() {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium mb-2 text-slate-700 dark:text-slate-300"
+              className="block text-lg font-semibold mb-3 text-slate-700 dark:text-slate-300"
             >
               Email
             </label>
@@ -94,7 +97,7 @@ export default function Contact() {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="w-full px-6 py-4 border border-slate-300 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-600 text-lg"
               placeholder="your@email.com"
             />
           </div>
@@ -102,7 +105,7 @@ export default function Contact() {
           <div>
             <label
               htmlFor="message"
-              className="block text-sm font-medium mb-2 text-slate-700 dark:text-slate-300"
+              className="block text-lg font-semibold mb-3 text-slate-700 dark:text-slate-300"
             >
               Message
             </label>
@@ -112,8 +115,8 @@ export default function Contact() {
               value={formData.message}
               onChange={handleChange}
               required
-              rows={5}
-              className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-600"
+              rows={7}
+              className="w-full px-6 py-4 border border-slate-300 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-600 text-lg"
               placeholder="Your message..."
             ></textarea>
           </div>
@@ -121,7 +124,7 @@ export default function Contact() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full btn-primary justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full px-6 py-4 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition-colors duration-200 text-xl disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? "Sending..." : "Send Message"}
           </button>
@@ -139,12 +142,12 @@ export default function Contact() {
           </div>
         )}
 
-        <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-700">
-          <div className="text-center space-y-4">
-            <p className="text-slate-600 dark:text-slate-400">
+        <div className="mt-16 pt-12 border-t border-slate-200 dark:border-slate-700">
+          <div className="text-center space-y-6">
+            <p className="text-slate-600 dark:text-slate-400 text-lg">
               You can also reach me at:
             </p>
-            <div className="flex justify-center gap-6">
+            <div className="flex justify-center gap-10 text-lg">
               <a
                 href="mailto:your@email.com"
                 className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium"
@@ -152,7 +155,7 @@ export default function Contact() {
                 Email
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/brayden-middlebrooks-6b139a374/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium"
@@ -160,7 +163,7 @@ export default function Contact() {
                 LinkedIn
               </a>
               <a
-                href="https://github.com"
+                href="https://github.com/bmidd0170-sys"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium"

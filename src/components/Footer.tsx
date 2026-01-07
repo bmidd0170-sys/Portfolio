@@ -2,12 +2,12 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-slate-900 dark:bg-slate-950 text-slate-100">
-      <div className="section-container">
+    <footer className="bg-transparent text-slate-100">
+      <div className="w-screen min-h-screen px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col items-center justify-center relative z-10">
         <div className="border-t border-slate-700 pt-8">
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
-              <h3 className="text-lg font-bold mb-4 gradient-text">
+              <h3 className="text-lg font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 Portfolio
               </h3>
               <p className="text-slate-400">
