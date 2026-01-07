@@ -5,12 +5,12 @@ import { useEffect, useState } from "react";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const [mode, setMode] = useState<"fun" | "boring">("fun");
+  const [mode, setMode] = useState<"fun" | "boring">("boring");
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     const saved = window.localStorage.getItem("site-mode");
-    const initial = saved === "boring" ? "boring" : "fun";
+    const initial = saved === "fun" ? "fun" : "boring";
     setMode(initial);
     document.documentElement.dataset.mode = initial;
   }, []);
