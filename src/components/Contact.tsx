@@ -56,9 +56,9 @@ export default function Contact() {
       id="contact"
       className="w-screen min-h-screen px-4 sm:px-6 lg:px-8 py-24 sm:py-20 flex flex-col items-center justify-center relative z-10"
     >
-      <h2 className="text-3xl sm:text-4xl font-bold mb-10 text-center sm:text-5xl">Get In Touch</h2>
+      <h2 className="text-3xl sm:text-4xl font-bold mb-10 text-center sm:text-5xl text-slate-100">Get In Touch</h2>
       <div className="max-w-3xl mx-auto">
-        <p className="text-center text-slate-600 dark:text-slate-300 mb-12 text-2xl">
+        <p className="text-center text-slate-200/90 mb-12 text-xl">
           I'd love to hear from you! Feel free to reach out with any questions or opportunities.
         </p>
 
@@ -67,7 +67,7 @@ export default function Contact() {
           <div>
             <label
               htmlFor="name"
-              className="block text-lg font-semibold mb-3 text-slate-700 dark:text-slate-300"
+              className="block text-lg font-semibold mb-3 text-slate-100"
             >
               Name
             </label>
@@ -86,7 +86,7 @@ export default function Contact() {
           <div>
             <label
               htmlFor="email"
-              className="block text-lg font-semibold mb-3 text-slate-700 dark:text-slate-300"
+              className="block text-lg font-semibold mb-3 text-slate-100"
             >
               Email
             </label>
@@ -105,7 +105,7 @@ export default function Contact() {
           <div>
             <label
               htmlFor="message"
-              className="block text-lg font-semibold mb-3 text-slate-700 dark:text-slate-300"
+              className="block text-lg font-semibold mb-3 text-slate-100"
             >
               Message
             </label>
@@ -124,7 +124,7 @@ export default function Contact() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full px-6 py-4 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition-colors duration-200 text-xl disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full px-6 py-4 rounded-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 text-white font-semibold shadow-lg shadow-blue-500/40 hover:shadow-blue-400/70 hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-200 text-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:scale-100"
           >
             {loading ? "Sending..." : "Send Message"}
           </button>
@@ -142,15 +142,15 @@ export default function Contact() {
           </div>
         )}
 
-        <div className="mt-16 pt-12 border-t border-slate-200 dark:border-slate-700">
-          <div className="text-center space-y-6">
-            <p className="text-slate-600 dark:text-slate-400 text-lg">
+        <div className="mt-16 pt-12 border-t border-slate-500/30">
+          <div className="text-center space-y-8">
+            <p className="text-slate-200/80 text-lg">
               You can also reach me at:
             </p>
-            <div className="flex justify-center gap-10 text-lg">
+            <div className="flex flex-wrap justify-center gap-4">
               <a
                 href="mailto:your@email.com"
-                className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium"
+                className="inline-flex items-center justify-center gap-2 px-10 py-4 min-w-[150px] rounded-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 text-white font-semibold shadow-lg shadow-blue-500/40 hover:shadow-blue-400/70 hover:-translate-y-0.5 hover:scale-[1.02] whitespace-nowrap text-sm sm:text-base transition-all duration-200"
               >
                 Email
               </a>
@@ -158,7 +158,7 @@ export default function Contact() {
                 href="https://www.linkedin.com/in/brayden-middlebrooks-6b139a374/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium"
+                className="inline-flex items-center justify-center gap-2 px-10 py-4 min-w-[150px] rounded-full border border-slate-500/70 bg-slate-900/40 text-slate-100 font-medium hover:border-blue-400 hover:bg-slate-800/70 hover:text-blue-100 backdrop-blur-sm whitespace-nowrap text-sm sm:text-base transition-colors transition-shadow duration-200"
               >
                 LinkedIn
               </a>
@@ -166,7 +166,7 @@ export default function Contact() {
                 href="https://github.com/bmidd0170-sys"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium"
+                className="inline-flex items-center justify-center gap-2 px-10 py-4 min-w-[150px] rounded-full border border-slate-500/70 bg-slate-900/40 text-slate-100 font-medium hover:border-blue-400 hover:bg-slate-800/70 hover:text-blue-100 backdrop-blur-sm whitespace-nowrap text-sm sm:text-base transition-colors transition-shadow duration-200"
               >
                 GitHub
               </a>

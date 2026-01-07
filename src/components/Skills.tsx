@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 interface SkillCategory {
   id?: number;
@@ -44,6 +44,8 @@ const defaultSkills = [
 export default function Skills() {
   const [skillCategories, setSkillCategories] = useState<SkillCategory[]>(defaultSkills);
   const [loading, setLoading] = useState(true);
+  const [isClient, setIsClient] = useState(false);
+  const [mode, setMode] = useState<"fun" | "boring">("fun");
 
   useEffect(() => {
     const fetchSkills = async () => {
@@ -64,28 +66,91 @@ export default function Skills() {
     fetchSkills();
   }, []);
 
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Track mode changes
+  useEffect(() => {
+    const updateMode = () => {
+      const currentMode = document.documentElement.dataset.mode as "fun" | "boring" | undefined;
+      setMode(currentMode || "fun");
+    };
+    
+    updateMode();
+    
+    const observer = new MutationObserver(updateMode);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-mode"],
+    });
+    
+    return () => observer.disconnect();
+  }, []);
+
   // Flatten all skills into a single array
   const allSkills = skillCategories.flatMap((cat) => cat.skills);
+  
+  const floatingSkills = useMemo(() => {
+    if (!isClient) return [] as {
+      skill: string;
+      x: number;
+      y: number;
+      delay: number;
+      duration: number;
+      floatX: number;
+      floatY: number;
+    }[];
 
-  // Generate random positions and animation for each skill (random float)
-  function getRandom(min: number, max: number) {
-    return Math.random() * (max - min) + min;
+    const getRandom = (min: number, max: number) =>
+      Math.random() * (max - min) + min;
+
+    return allSkills.map((skill) => {
+      const x = getRandom(-520, 520);
+      const y = getRandom(0, 260);
+      const delay = getRandom(0, 2);
+      const duration = getRandom(3.5, 6);
+      const floatX = getRandom(-32, 32);
+      const floatY = getRandom(24, 64);
+      return { skill, x, y, delay, duration, floatX, floatY };
+    });
+  }, [isClient, allSkills]);
+
+  // Boring mode: static grid layout
+  if (mode === "boring") {
+    return (
+      <section
+        id="skills"
+        className="w-screen min-h-screen px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col items-center justify-start relative z-10 bg-transparent"
+      >
+        <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-center">Skills & Expertise</h2>
+        {loading && <p className="text-center text-slate-600">Loading skills...</p>}
+        <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {skillCategories.map((category) => (
+            <div key={category.category} className="space-y-4">
+              <h3 className="text-xl font-bold text-center text-blue-600 dark:text-blue-400 mb-4">
+                {category.category}
+              </h3>
+              <div className="space-y-3">
+                {category.skills.map((skill) => (
+                  <div
+                    key={skill}
+                    className="bg-white dark:bg-slate-800 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-3 text-center"
+                  >
+                    <span className="text-slate-800 dark:text-slate-100 font-medium">
+                      {skill}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    );
   }
-  // Store positions and animation state for interactivity
-  const [positions, setPositions] = useState(() =>
-    allSkills.map(() => ({ dx: 0, dy: 0 }))
-  );
-  const floatingSkills = allSkills.map((skill, i) => {
-    // Increase spread for further apart circles
-    const x = getRandom(-520, 520);
-    const y = getRandom(0, 260);
-    const delay = getRandom(0, 2);
-    const duration = getRandom(3.5, 6);
-    const floatX = getRandom(-32, 32);
-    const floatY = getRandom(24, 64);
-    return { skill, x, y, delay, duration, floatX, floatY };
-  });
 
+  // Fun mode: floating bubbles
   return (
     <section
       id="skills"
@@ -110,36 +175,6 @@ export default function Skills() {
               alignItems: 'center',
               justifyContent: 'center',
               textAlign: 'center',
-              transform: `translate(${positions[i]?.dx || 0}px, ${positions[i]?.dy || 0}px)`
-            }}
-            onMouseMove={e => {
-              // Move the circle away from the mouse pointer
-              const rect = e.currentTarget.getBoundingClientRect();
-              const cx = rect.left + rect.width / 2;
-              const cy = rect.top + rect.height / 2;
-              const mx = e.clientX;
-              const my = e.clientY;
-              const dx = mx - cx;
-              const dy = my - cy;
-              const dist = Math.sqrt(dx * dx + dy * dy);
-              // Move away up to 40px, proportional to closeness
-              const move = dist < 120 ? (40 * (1 - dist / 120)) : 0;
-              const angle = Math.atan2(dy, dx);
-              setPositions(pos => {
-                const newPos = [...pos];
-                newPos[i] = {
-                  dx: -Math.cos(angle) * move,
-                  dy: -Math.sin(angle) * move,
-                };
-                return newPos;
-              });
-            }}
-            onMouseLeave={() => {
-              setPositions(pos => {
-                const newPos = [...pos];
-                newPos[i] = { dx: 0, dy: 0 };
-                return newPos;
-              });
             }}
           >
             <span className="w-full h-full flex items-center justify-center text-center px-2">

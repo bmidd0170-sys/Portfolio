@@ -22,6 +22,7 @@ function ProjectsCarousel() {
   const [loading, setLoading] = useState(true);
   const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
   const selectedProjectIndexRef = useRef(0);
+  const [mode, setMode] = useState<"fun" | "boring">("fun");
 
   const isDraggingRef = useRef(false);
   const dragStartXRef = useRef(0);
@@ -48,9 +49,27 @@ function ProjectsCarousel() {
     fetchProjects();
   }, []);
 
+  // Track mode changes
+  useEffect(() => {
+    const updateMode = () => {
+      const currentMode = document.documentElement.dataset.mode as "fun" | "boring" | undefined;
+      setMode(currentMode || "fun");
+    };
+    
+    updateMode();
+    
+    const observer = new MutationObserver(updateMode);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-mode"],
+    });
+    
+    return () => observer.disconnect();
+  }, []);
+
   // Initialize Three.js scene
   useEffect(() => {
-    if (!containerRef.current || projects.length === 0) return;
+    if (!containerRef.current || projects.length === 0 || mode === "boring") return;
 
     // Scene setup
     const scene = new THREE.Scene();
@@ -243,7 +262,7 @@ function ProjectsCarousel() {
       });
       renderer.dispose();
     };
-  }, [projects]);
+  }, [projects, mode]);
 
   if (loading) {
     return (
@@ -256,6 +275,57 @@ function ProjectsCarousel() {
     );
   }
 
+  // Boring mode: static card grid
+  if (mode === "boring") {
+    return (
+      <section
+        id="projects"
+        className="w-screen min-h-screen px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col items-center justify-center relative z-10"
+      >
+        <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-center">Featured Projects</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl w-full">
+          {projects.map((project) => (
+            <div
+              key={project.id}
+              className="bg-white dark:bg-slate-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 p-6 flex flex-col"
+            >
+              {project.imageUrl && (
+                <img
+                  src={project.imageUrl}
+                  alt={project.title}
+                  className="w-full h-48 object-cover rounded-lg mb-4"
+                />
+              )}
+              <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+              <p className="text-slate-600 dark:text-slate-300 mb-4 flex-grow">
+                {project.description}
+              </p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {project.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-3 py-1 text-sm bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 rounded-full"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              {project.link && (
+                <a
+                  href={project.link}
+                  className="inline-block text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium"
+                >
+                  View Project →
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
+  // Fun mode: 3D carousel
   const selectedProject = projects[selectedProjectIndex];
 
   return (
