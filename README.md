@@ -29,6 +29,28 @@ A modern, responsive portfolio website built with Next.js, React, and Tailwind C
 - **Fonts**: Geist Font Family
 - **Build Tool**: Turbopack
 
+## Data Flow Diagram
+
+```mermaid
+flowchart LR
+    A[Client UI (React/Next.js)] -->|fetch JSON| B[/API Routes/]
+    B -->|ORM queries| C[(PostgreSQL)]
+    C -->|results| B
+    B -->|JSON response| A
+
+    subgraph API Routes
+        B1[GET/POST /api/contacts]
+        B2[GET/POST /api/projects]
+        B3[GET/PUT/DELETE /api/projects/:id]
+        B4[GET/POST /api/skills]
+    end
+
+    B -.-> B1
+    B -.-> B2
+    B -.-> B3
+    B -.-> B4
+```
+
 ## Getting Started
 
 ### Prerequisites
